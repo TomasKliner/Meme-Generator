@@ -1,15 +1,18 @@
 import React from "react";
-import Meme from '../memesData'
+import Meme from "../memesData";
 
 export default function Header() {
-   
-  const [url, setUrl] = React.useState("");
+  const [url, setUrl] = React.useState(getMeme().url);
 
-  function handleClick() {
-    if (Meme.success){
-        const memesData= Meme.data.memes[Math.floor(Math.random() * Meme.data.memes.length)]; 
-        setUrl(memesData.url);
+  function getMeme() {
+    if (Meme.success) {
+      return Meme.data.memes[
+        Math.floor(Math.random() * Meme.data.memes.length)
+      ];
     }
+  }
+  function handleClick() {
+    setUrl(getMeme().url);
   }
 
   return (
@@ -31,7 +34,7 @@ export default function Header() {
           type="submit"
           value="Get a new meme image 🖼️"
           onClick={handleClick}
-          className="bg-gradient-to-r from-purple-800 to-purple-500 text-white p-2 w-full rounded-md cursor-pointer"
+          className="bg-gradient-to-r from-purple-800 to-purple-500 text-white p-2 rounded-md cursor-pointer"
         />
       </div>
       <img className="m-auto mt-4" src={url} alt="meme" />
