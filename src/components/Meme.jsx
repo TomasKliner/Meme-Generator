@@ -2,13 +2,13 @@ import React from "react";
 import Meme from '../memesData'
 
 export default function Header() {
-    let url;
+   
+  const [url, setUrl] = React.useState("");
+
   function handleClick() {
     if (Meme.success){
         const memesData= Meme.data.memes[Math.floor(Math.random() * Meme.data.memes.length)]; 
-        url = memesData.url;
-        alert(url)
-
+        setUrl(memesData.url);
     }
   }
 
