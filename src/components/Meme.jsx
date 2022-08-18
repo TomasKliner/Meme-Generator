@@ -1,19 +1,23 @@
-import React from "react";
-import Meme from "../memesData";
+import React from "react"
+import memesData from "../memesData.js"
 
-export default function Header() {
-  const [url, setUrl] = React.useState(getMeme().url);
+export default function Meme() {
 
-  function getMeme() {
-    if (Meme.success) {
-      return Meme.data.memes[
-        Math.floor(Math.random() * Meme.data.memes.length)
-      ];
+    
+    const [meme, setMeme] = React.useState({
+        topText:"",
+        bottomText:"",
+        randomImage: "http://i.imgflip.com/1bij.jpg"
+    });
+    const allMemeImages = memesData;
+    
+    
+    function getMemeImage() {
+        const memesArray = allMemeImages.data.memes
+        const randomNumber = Math.floor(Math.random() * memesArray.length)
+        setMeme({...meme, randomImage: memesArray[randomNumber].url})
+        
     }
-  }
-  function handleClick() {
-    setUrl(getMeme().url);
-  }
 
   return (
     <div>
@@ -33,11 +37,11 @@ export default function Header() {
         <input
           type="submit"
           value="Get a new meme image 🖼️"
-          onClick={handleClick}
-          className="bg-gradient-to-r from-purple-800 to-purple-500 text-white p-2 rounded-md cursor-pointer"
+          onClick={getMemeImage}
+          className="bg-gradient-to-r from-purple-800 to-purple-500 text-white p-2 rounded-md cursor-pointer w-full"
         />
       </div>
-      <img className="m-auto mt-4" src={url} alt="meme" />
+      <img className="m-auto mt-4 w-1/3" src={meme.randomImage} alt="meme " />
     </div>
   );
 }
